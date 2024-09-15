@@ -14,3 +14,28 @@
         }
 
     }
+
+
+## DAR RESPUESTA DE LO MISMO DETECTADO EN LA ULTIMA LINEA ##
+
+@Override
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        if (event.getAuthor().isBot()) return;  //Evitamos que el bot se auto responda
+        MessageChannel channel = event.getChannel();
+        channel.sendMessage(event.getMessage().getContentRaw()).queue();
+
+
+    }
+
+
+    ## SLASH COMMANDS ##
+
+    Como subar dos numeros a partir de un comnado
+
+    @Override
+        public void onReady(@NotNull  ReadyEvent event) {
+            Guild guild = event.getJDA().getGuildById(1282507250539171840L);
+            guild.upsertCommand("sum","gives the sum of two numbers").queue();
+
+
+        }
