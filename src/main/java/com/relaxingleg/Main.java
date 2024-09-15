@@ -11,9 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         JDA jda = JDABuilder.createDefault("").build();
+        jda.addEventListener((new Listeners()));
 
-        for(Guild guild : jda.getGuilds()) {
-            System.out.println(guild.getName());
-        }
     }
 }
