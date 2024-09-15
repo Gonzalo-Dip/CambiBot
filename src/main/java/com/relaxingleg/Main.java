@@ -2,6 +2,8 @@ package com.relaxingleg;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Guild;
+
 import javax.security.auth.login.LoginException;
 
 public class Main {
@@ -10,6 +12,8 @@ public class Main {
 
         JDA jda = JDABuilder.createDefault("").build();
 
-
+        for(Guild guild : jda.getGuilds()) {
+            System.out.println(guild.getName());
+        }
     }
 }
