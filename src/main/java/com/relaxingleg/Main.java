@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        JDA jda = JDABuilder.createDefault("", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT).build();
+        JDA jda = JDABuilder.createDefault("", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES).build();
         jda.addEventListener((new Listeners()));
         jda.addEventListener(new Sum()) ;
         CommandManager manager = new CommandManager();

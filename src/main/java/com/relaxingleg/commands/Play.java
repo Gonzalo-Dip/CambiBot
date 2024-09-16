@@ -3,6 +3,7 @@ package com.relaxingleg.commands;
 import com.relaxingleg.ICommand;
 import com.relaxingleg.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
+import net.dv8tion.jda.api.entities.GuildVoiceState.*;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Widget;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -37,35 +38,43 @@ public class Play implements ICommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         Member member = event.getMember();
-        assert member != null;
-        GuildVoiceState memberVoiceState = member.getVoiceState();
+        if (member == null) {
+            event.reply("Error: No se pudo obtener la información del miembro.").queue();
+            return;
+        }
 
-        if(!memberVoiceState.inAudioChannel()){
-            event.reply("Tienes que estar dentro de un canal de Voz").queue();
+        GuildVoiceState memberVoiceState = member.getVoiceState();
+        if (memberVoiceState == null) {
+            event.reply("Error: No se pudo obtener el estado de voz del miembro.").queue();
+            return;
+        }
+
+        if (!memberVoiceState.inAudioChannel()) {
+            event.reply("Tienes que estar dentro de un canal de voz").queue();
             return;
         }
 
         Member self = event.getGuild().getSelfMember();
         GuildVoiceState selfVoiceState = self.getVoiceState();
 
-        if(!selfVoiceState.inAudioChannel()){
+        if (selfVoiceState == null) {
+            event.reply("Error: No se pudo obtener el estado de voz del bot.").queue();
+            return;
+        }
+
+        if (!selfVoiceState.inAudioChannel()) {
             event.getGuild().getAudioManager().openAudioConnection(memberVoiceState.getChannel());
-
-        }else {
-
-            if(selfVoiceState.getChannel() != memberVoiceState.getChannel()){
+        } else {
+            if (selfVoiceState.getChannel() != memberVoiceState.getChannel()) {
                 event.reply("Debes estar en el mismo canal").queue();
                 return;
-
-
             }
         }
 
         PlayerManager playerManager = PlayerManager.get();
         PlayerManager.play(event.getGuild(), event.getOption("name").getAsString());
-
-
     }
+
 }
 
 
