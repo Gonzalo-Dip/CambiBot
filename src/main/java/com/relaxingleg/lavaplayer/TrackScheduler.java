@@ -30,4 +30,12 @@ public class TrackScheduler extends AudioEventAdapter {
             queue.offer(track);
         }
     }
+
+    public BlockingQueue<AudioTrack> getQueue() {
+        return queue;
+    }
+
+    public AudioPlayer getPlayer() {
+        return player;
+    }
 }
