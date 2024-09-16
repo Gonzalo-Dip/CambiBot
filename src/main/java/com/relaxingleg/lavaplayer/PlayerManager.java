@@ -15,8 +15,8 @@ import java.util.Map;
 public class PlayerManager {
 
     private static PlayerManager INSTANCE;
-    private Map<Long, GuildMusicManager> guildMusicManagers = new HashMap<>();
-    private AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
+    private static Map<Long, GuildMusicManager> guildMusicManagers = new HashMap<>();
+    private static AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
 
     private PlayerManager(){
         AudioSourceManagers.registerRemoteSources(audioPlayerManager);
@@ -31,7 +31,7 @@ public class PlayerManager {
         return INSTANCE;
     }
 
-    public GuildMusicManager getGuildMusicManager(Guild guild){
+    public static GuildMusicManager getGuildMusicManager(Guild guild){
 
         return guildMusicManagers.computeIfAbsent(guild.getIdLong(), (guildId) -> {
             GuildMusicManager musicManager = new GuildMusicManager(audioPlayerManager);
@@ -43,7 +43,7 @@ public class PlayerManager {
 
     }
 
-    public void play(Guild guild, String trackURL ){
+    public static void play(Guild guild, String trackURL){
         GuildMusicManager guildMusicManager = getGuildMusicManager(guild);
         audioPlayerManager.loadItemOrdered(guild, trackURL, new AudioLoadResultHandler() {
 

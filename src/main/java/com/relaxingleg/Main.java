@@ -1,5 +1,6 @@
 package com.relaxingleg;
 
+import com.relaxingleg.commands.Play;
 import com.relaxingleg.commands.Sum;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -16,6 +17,8 @@ public class Main {
         jda.addEventListener((new Listeners()));
         jda.addEventListener(new Sum()) ;
         CommandManager manager = new CommandManager();
+        manager.add(new Play());
+        jda.addEventListener(manager);
 
     }
 }
