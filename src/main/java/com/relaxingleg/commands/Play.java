@@ -11,12 +11,18 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.utils.WidgetUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Play implements ICommand {
 
+
+    @Override
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+
+    }
 
     @Override
     public String getName() {
