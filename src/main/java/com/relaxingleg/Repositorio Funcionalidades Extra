@@ -39,3 +39,48 @@
 
 
         }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+ @Override
+     public void execute(SlashCommandInteractionEvent event) {
+         Member member = event.getMember();
+         assert member != null;
+         GuildVoiceState memberVoiceState = member.getVoiceState();
+
+         if(!memberVoiceState.inAudioChannel()){
+             event.reply("Tienes que estar dentro de un canal de Voz").queue();
+             return;
+         }
+
+         Member self = event.getGuild().getSelfMember();
+         GuildVoiceState selfVoiceState = self.getVoiceState();
+
+         if(!selfVoiceState.inAudioChannel()){
+             event.getGuild().getAudioManager().openAudioConnection(memberVoiceState.getChannel());
+
+         }else {
+
+             if(selfVoiceState.getChannel() != memberVoiceState.getChannel()){
+                 event.reply("Debes estar en el mismo canal").queue();
+                 return;
+
+
+             }
+         }
+
+         PlayerManager playerManager = PlayerManager.get();
+         PlayerManager.play(event.getGuild(), event.getOption("name").getAsString());
+
+
+     }
