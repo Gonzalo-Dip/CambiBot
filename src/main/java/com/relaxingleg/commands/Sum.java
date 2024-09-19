@@ -30,11 +30,11 @@ public class Sum implements ICommand {
     public List<OptionData> getOptions() {
        List<OptionData> data = new ArrayList<>();
         data.add(new OptionData(OptionType.INTEGER, "number1", "The first number", true)
-                .setMinValue(1)
-                .setMaxValue(100));
+                .setMinValue(-100000000)
+                .setMaxValue(100000000));
         data.add(new OptionData(OptionType.INTEGER, "number2", "The second number", true)
-                .setMinValue(1)
-                .setMaxValue(100));
+                .setMinValue(-100000000)
+                .setMaxValue(100000000));
         return data;
     }
 
