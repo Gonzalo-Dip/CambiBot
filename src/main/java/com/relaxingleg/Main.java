@@ -15,8 +15,8 @@ public class Main {
 
         JDA jda = JDABuilder.createDefault("", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES).build();
         jda.addEventListener((new Listeners()));
-        jda.addEventListener(new Sum()) ;
         CommandManager manager = new CommandManager();
+        manager.add(new Sum());
         manager.add(new Play());
         jda.addEventListener(manager);
 
