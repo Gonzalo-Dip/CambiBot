@@ -1,36 +1,26 @@
 # CambiBot
- **CambiBot** es un bot de Discord diseñado para proporcionar cotizaciones de divisas y noticias argentinas en tiempo real. Ideal para quienes necesitan información financiera actualizada y relevante sobre Argentina, CambiBot facilita el acceso a datos de mercado y noticias importantes directamente en tu servidor de Discord. <br> 
- 
- ## How to use
- Replace `self.prefix = "cp2"` with any prefix of your choice. <br>
- Replace `self.token = "TOKEN"` with user account token. <br>
- To copy a server use command |**\<prefix>\<command> \<GuildID-Original> \<GuildID-Target>**| <br>
- *GuildID-Original* - ID of the server you wish to copy. <br>
- *GuildID-Target* - ID of the server you wish to overwrite. (I recomend using a new one) <br>
- 
- ## Features
- - Copy all roles with setting
- - Copy all emotes
- - Copy almost all channels with permissions
- - Copy hidden channels
- - Copy server name and icon
- 
- ## Missing features from first version
- - Copy specified amount of messages (embeds and files included)
- - Send invite link to all members of the original server
- - Add public bots from the original server (not possible anymore)
- 
- ## Known issues
-Some text and voice channels can't be copied. <br>
-copypaste.py | line 143 and 104 <br>
-<br>
- It's not possible to start the selfbot without `fetch_offline_members=False`.<br>
- main.py | line 13 <br>
+Este proyecto es un bot de Discord que proporciona varias funcionalidades a través de diferentes comandos. Su objetivo es mejorar la experiencia de los usuarios en los servidores de Discord, ofreciendo comandos útiles y versátiles.
 
-## Note
-This code is based on a old CopyPaste selfbot, so it's pretty bad. <br> 
-If you have any ideas how to improve it feel free to do so.
+## Funcionalidades
+El bot incluye las siguientes características:
 
+### 1. Embeds
+Permite enviar mensajes enriquecidos (embeds) que mejoran la presentación de la información.
+
+### 2. Comandos
+
+- **mute**: Silencia a un usuario en el canal.
+- **play**: Reproduce música desde diversas fuentes.
+- **staff**: Comando para gestionar miembros del personal del servidor.
+- **unstaff**: Revoca el rol de miembro del personal a un usuario.
+- **listeners**: Muestra una lista de usuarios que están escuchando música.
+- **sum**: Realiza sumas básicas de números proporcionados por el usuario.
+
+## Instalación
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu_usuario/tu_proyecto.git
 
 
 
