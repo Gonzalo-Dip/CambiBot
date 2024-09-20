@@ -1,6 +1,5 @@
 package com.relaxingleg.commands;
 
-
 import com.relaxingleg.ICommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -37,10 +36,9 @@ public class UnStaff implements ICommand {
         Member member = event.getMember();
         Guild guild = event.getGuild();
         assert guild != null;
-        Role Role = guild.getRoleById(1282507250539171840L);
+        Role role = guild.getRoleById(1282507250539171840);
         assert member != null;
-        net.dv8tion.jda.api.entities.Role role = null;
-        assert false;
+        assert role != null;
         guild.removeRoleFromMember(member, role).queue();
         event.reply("Role Removed").queue();
     }

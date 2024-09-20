@@ -41,28 +41,19 @@ public class Mute implements ICommand {
         Member member = event.getMember();
         Guild guild = event.getGuild();
         assert guild != null;
-
-
-        long roleId = 1282507250539171840L;
-
-        Role role = guild.getRoleById(roleId);
+        Role role;
+        role = guild.getRoleById(1282507250539171840);
         assert member != null;
-
-        if (member.getRoles().contains(role)) {
+        if(member.getRoles().contains(role)) {
             Member mutedMember = Objects.requireNonNull(event.getOption("muted")).getAsMember();
-
-
-            Role muteRole = guild.getRoleById(roleId);
-            Role defaultRole = guild.getRoleById(roleId);
-
+            Role muteRole;
+            muteRole = guild.getRoleById(1282507250539171840);
+            Role defaultRole = guild.getRoleById(1282507250539171840);
             assert mutedMember != null;
             assert defaultRole != null;
-
-
             guild.removeRoleFromMember(mutedMember, defaultRole).queue();
             assert muteRole != null;
             guild.addRoleToMember(mutedMember, muteRole).queue();
-
             event.reply("Muted member").queue();
         } else {
             event.reply("You do not have permission to execute this command").queue();

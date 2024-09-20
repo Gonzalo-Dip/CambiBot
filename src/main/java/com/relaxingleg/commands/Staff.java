@@ -35,11 +35,8 @@ public class Staff implements ICommand {
     public void execute(SlashCommandInteractionEvent event) {
         Member member = event.getMember();
         Guild guild = event.getGuild();
-        assert guild != null;
-        Role roleId = guild.getRoleById(1282507250539171840L);
-        assert member != null;
-        assert roleId != null;
-        guild.addRoleToMember(member, roleId).queue();
+        Role role = guild.getRoleById(1282507250539171840);
+        guild.addRoleToMember(member, role).queue();
         event.reply("Role Added").queue();
     }
 }
