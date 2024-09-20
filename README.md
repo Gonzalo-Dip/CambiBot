@@ -19,8 +19,8 @@ Permite enviar mensajes enriquecidos (embeds) que mejoran la presentación de la
 ## Instalación
 
 1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/tu_usuario/tu_proyecto.git
+   [```bash
+   git clone https://github.com/tu_usuario/tu_proyecto.git](https://github.com/Gonzalo-Dip/CambiBot.git)
 
 
 
