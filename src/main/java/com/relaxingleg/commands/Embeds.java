@@ -39,7 +39,10 @@ public class Embeds implements ICommand {
         builder.addField("/Embeds","Incrustaciones", false);
         builder.addField("/Play","Música", false);
         builder.addField("/Staff","Roles y permisos", false);
+        builder.addField("/Unstaff","Sacar Roles y permisos", false);
         builder.addField("/Sum","Sumar", false);
+        builder.addField("/Mute","Silenciar usario", false);
+        builder.addField("/Unmute","Dejar de silenciar usuario", false);
         builder.setFooter("Para info consultar a cualquier miembro del Staff");
         builder.setColor(Color.BLUE);
         builder.setAuthor("Staff");
