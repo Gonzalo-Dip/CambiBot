@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class Staff implements ICommand {
+public class UnStaff implements ICommand {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
 
@@ -18,12 +18,12 @@ public class Staff implements ICommand {
 
     @Override
     public String getName() {
-        return "staff";
+        return "unstaff";
     }
 
     @Override
     public String getDescription() {
-        return "Will give you staff";
+        return "Will remove staff";
     }
 
     @Override
@@ -35,8 +35,11 @@ public class Staff implements ICommand {
     public void execute(SlashCommandInteractionEvent event) {
         Member member = event.getMember();
         Guild guild = event.getGuild();
+        assert guild != null;
         Role role = guild.getRoleById(1282507250539171840);
-        guild.addRoleToMember(member, role).queue();
-        event.reply("Role Added").queue();
+        assert member != null;
+        assert role != null;
+        guild.removeRoleFromMember(member, role).queue();
+        event.reply("Role Removed").queue();
     }
 }
