@@ -1,5 +1,6 @@
 package com.relaxingleg;
 
+import com.relaxingleg.commands.Embeds;
 import com.relaxingleg.commands.Play;
 import com.relaxingleg.commands.Sum;
 import com.relaxingleg.commands.Staff;
@@ -19,11 +20,11 @@ public class Main {
         CommandManager manager = new CommandManager();
         manager.add(new Sum());
         manager.add(new Play());
+        manager.add(new Embeds());
         manager.add(new Staff());
         manager.add(new UnStaff());
         manager.add(new Mute());
         manager.add(new Unmute());
-
         jda.addEventListener(manager);
 
     }
