@@ -84,3 +84,71 @@
 
 
      }
+
+
+
+
+
+
+
+     CONEXION CON LA API PARA UNA CONSULTA UNICA
+
+     private static final String UR_BASE = "https://dolarapi.com/";
+
+             try {
+                 URL url = new URL ("https://dolarapi.com/v1/dolares/blue");
+
+                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                 connection.setRequestMethod("GET");
+
+                 int codigoRespuesta = connection.getResponseCode();
+
+                 if(codigoRespuesta == 200){
+
+                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                     StringBuilder respuesta = new StringBuilder();
+                     String line; //Leer linea por linea
+
+                     while((line = reader.readLine()) != null){
+                         respuesta.append(line);
+                     }
+
+                     System.out.println("Respuesta obtenida de la API: "+ respuesta.toString());
+
+                     connection.disconnect();
+
+                 }else{
+                     throw new RuntimeException("Error al obtener la info de la API: " + codigoRespuesta);
+
+                 }
+
+
+             } catch (Exception e) {
+                 throw new RuntimeException(e);
+             }
+
+
+
+
+              // Llamada al endpoint /productos
+                         HttpRequest requestProductos = HttpRequest.newBuilder()
+                                 .uri(URI.create(BASE_URL + "productos"))
+                                 .GET()
+                                 .build();
+                         HttpResponse<String> responseProductos = client.send(requestProductos, HttpResponse.BodyHandlers.ofString());
+                         if (responseProductos.statusCode() == 200) {
+                             Object productos = objectMapper.readValue(responseProductos.body(), new TypeReference<>() {});
+                             System.out.println("Productos: " + productos);
+                         }
+
+                         // Llamada al endpoint /pedidos
+                         HttpRequest requestPedidos = HttpRequest.newBuilder()
+                                 .uri(URI.create(BASE_URL + "pedidos"))
+                                 .GET()
+                                 .build();
+                         HttpResponse<String> responsePedidos = client.send(requestPedidos, HttpResponse.BodyHandlers.ofString());
+                         if (responsePedidos.statusCode() == 200) {
+                             Object pedidos = objectMapper.readValue(responsePedidos.body(), new TypeReference<>() {});
+                             System.out.println("Pedidos: " + pedidos);
+                         }
