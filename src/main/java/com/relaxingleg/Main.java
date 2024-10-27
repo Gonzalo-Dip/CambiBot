@@ -11,11 +11,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -32,43 +27,5 @@ public class Main {
         manager.add(new Unmute());
         jda.addEventListener(manager);
 
-
-
-
-
-        try {
-            URL url = new URL ("https://dolarapi.com/v1/dolares/blue");
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-
-            int codigoRespuesta = connection.getResponseCode();
-
-            if(codigoRespuesta == 200){
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder respuesta = new StringBuilder();
-                String line; //Leer linea por linea
-
-                while((line = reader.readLine()) != null){
-                    respuesta.append(line);
-                }
-
-                System.out.println("Respuesta obtenida de la API: "+ respuesta.toString());
-
-                connection.disconnect();
-
-            }else{
-                throw new RuntimeException("Error al obtener la info de la API: " + codigoRespuesta);
-
-            }
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
     }
 }
-
