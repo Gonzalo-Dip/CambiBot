@@ -1,16 +1,12 @@
-package com.relaxingleg.commands;
+package com.Cambibot.commands;
 
-import com.relaxingleg.ICommand;
-import com.relaxingleg.lavaplayer.PlayerManager;
+import com.Cambibot.ICommand;
+import com.Cambibot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.GuildVoiceState.*;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Widget;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.utils.WidgetUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

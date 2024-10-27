@@ -1,4 +1,4 @@
-package com.relaxingleg.lavaplayer;
+package com.Cambibot.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;

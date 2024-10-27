@@ -1,6 +1,6 @@
-package com.relaxingleg.commands;
+package com.Cambibot.commands;
 
-import com.relaxingleg.ICommand;
+import com.Cambibot.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;

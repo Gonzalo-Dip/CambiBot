@@ -1,12 +1,12 @@
-package com.relaxingleg;
+package com.Cambibot;
 
-import com.relaxingleg.commands.Embeds;
-import com.relaxingleg.commands.Play;
-import com.relaxingleg.commands.Sum;
-import com.relaxingleg.commands.Staff;
-import com.relaxingleg.commands.UnStaff;
-import com.relaxingleg.commands.Mute;
-import com.relaxingleg.commands.Unmute;
+import com.Cambibot.commands.Embeds;
+import com.Cambibot.commands.Play;
+import com.Cambibot.commands.Sum;
+import com.Cambibot.commands.Staff;
+import com.Cambibot.commands.UnStaff;
+import com.Cambibot.commands.Mute;
+import com.Cambibot.commands.Unmute;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;

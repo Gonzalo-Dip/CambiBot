@@ -1,7 +1,7 @@
-package com.relaxingleg.commands;
+package com.Cambibot.commands;
 
 
-import com.relaxingleg.ICommand;
+import com.Cambibot.ICommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
