@@ -1,5 +1,6 @@
 package com.relaxingleg;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relaxingleg.commands.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -111,6 +112,16 @@ public class Main {
 
         try {
             String respuesta = get(endpoint);
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                TipoDolar dolar = objectMapper.readValue(respuesta, TipoDolar.class);
+
+                System.out.println("Name: " + dolar.getNombre());
+                System.out.println("Age: " + dolar.getCompra());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             System.out.println("Respuesta para el endpoint seleccionado: " + respuesta);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
