@@ -127,4 +127,28 @@ public class Main {
             System.err.println(e.getMessage());
         }
     }
+    public class Main {
+    package com.Cambibot.commands;
+
+    import com.detectlanguage.DetectLanguage;
+    import com.detectlanguage.Result;
+    import com.detectlanguage.errors.APIError;
+    import java.util.List;
+
+        public class LanguageDetector {
+            private List<Result> results;
+
+            public LanguageDetector() throws APIError {
+                DetectLanguage.apiKey = "";
+
+                results = DetectLanguage.detect("Hello World");
+                List<Result> results = DetectLanguage.detect("Hello world");
+                Result result = results.get(0);
+
+                System.out.println("Language: " + result.language);
+                System.out.println("Is reliable: " + result.isReliable);
+                System.out.println("Confidence: " + result.confidence);
+            }
+        }
+    }
 }
