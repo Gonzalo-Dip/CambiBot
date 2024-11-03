@@ -1,12 +1,11 @@
 package com.relaxingleg.commands;
 
 import com.relaxingleg.commands.CotizacionService;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.interactions.components.buttons.*;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,36 +32,26 @@ public class CotizacionCommand extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
-        String endpoint = "";
+        if (event.getButton().getId().startsWith("tipo_dolar_")) {
+            handleDolarType(event);
+            return; // Salimos de este método, ya que ya manejamos el tipo de Dólar.
+        }
 
-        // Determinar qué botón fue presionado
         switch (event.getButton().getId()) {
             case "moneda_dolar":
                 askDolarType(event);
-                return; // Salimos de este método, ya que no necesitamos continuar con la ejecución
-
+                break;
             case "moneda_euro":
-                endpoint = "v1/cotizaciones/eur";
+                String euroEndpoint = "v1/cotizaciones/eur";
+                processResponse(event, euroEndpoint);
                 break;
-
             case "moneda_real":
-                endpoint = "v1/cotizaciones/brl";
+                String realEndpoint = "v1/cotizaciones/brl";
+                processResponse(event, realEndpoint);
                 break;
-
-            // Si el botón de Dólar fue presionado, no hay un endpoint aún.
             default:
                 event.reply("Opción no válida.").setEphemeral(true).queue();
-                return;
-        }
-
-        // Si tenemos un endpoint, obtenemos y respondemos
-        if (!endpoint.isEmpty()) {
-            try {
-                String respuesta = CotizacionService.get(endpoint);
-                event.reply("Respuesta para el endpoint seleccionado: " + respuesta).setEphemeral(true).queue();
-            } catch (RuntimeException e) {
-                event.reply("Error: " + e.getMessage()).setEphemeral(true).queue();
-            }
+                break;
         }
     }
 
@@ -78,7 +67,6 @@ public class CotizacionCommand extends ListenerAdapter {
                 ).queue();
     }
 
-    // Puedes manejar la lógica de los botones de tipo de Dólar aquí también
     private void handleDolarType(ButtonInteractionEvent event) {
         String endpoint = "";
 
@@ -92,16 +80,20 @@ public class CotizacionCommand extends ListenerAdapter {
             case "tipo_dolar_bolsa":
                 endpoint = "v1/dolares/bolsa";
                 break;
+            default:
+                event.reply("Opción no válida para el tipo de Dólar.").setEphemeral(true).queue();
+                return;
         }
 
-        if (!endpoint.isEmpty()) {
-            try {
-                String respuesta = CotizacionService.get(endpoint);
-                event.reply("Respuesta para el endpoint Dólar: " + respuesta).setEphemeral(true).queue();
-            } catch (RuntimeException e) {
-                event.reply("Error: " + e.getMessage()).setEphemeral(true).queue();
-            }
+        processResponse(event, endpoint);
+    }
 
+    private void processResponse(ButtonInteractionEvent event, String endpoint) {
+        try {
+            String respuesta = CotizacionService.get(endpoint);
+            event.reply("Respuesta para el endpoint seleccionado: " + respuesta).setEphemeral(true).queue();
+        } catch (RuntimeException e) {
+            event.reply("Error: " + e.getMessage()).setEphemeral(true).queue();
         }
     }
 }
