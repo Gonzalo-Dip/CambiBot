@@ -84,3 +84,69 @@
 
 
      }
+
+
+
+
+
+
+
+
+
+     System.out.println("Seleccione la moneda que desea consultar:");
+             System.out.println("1. Dólar");
+             System.out.println("2. Euro");
+             System.out.println("3. Real");
+
+
+             int moneda = scanner.nextInt();
+             String endpoint = "";
+
+             switch (moneda) {
+                 case 1:
+
+                     System.out.println("Seleccione el tipo de cotización del Dólar:");
+                     System.out.println("1. Dólar Blue");
+                     System.out.println("2. Dólar Oficial");
+                     System.out.println("3. Dólar Bolsa");
+                     int tipoDolar = scanner.nextInt();
+
+                     switch (tipoDolar) {
+                         case 1:
+                             endpoint = "v1/dolares/blue";
+                             break;
+                         case 2:
+                             endpoint = "v1/dolares/oficial";
+                             break;
+                         case 3:
+                             endpoint = "v1/dolares/bolsa";
+                             break;
+                         default:
+                             System.out.println("Opción no válida para el tipo de Dólar.");
+                             return;
+                     }
+                     break;
+
+                 case 2:
+                     // Cotización del Euro
+                     endpoint = "v1/cotizaciones/eur";
+                     break;
+
+                 case 3:
+                     // Cotización del Real
+                     endpoint = "v1/cotizaciones/brl";
+                     break;
+
+                 default:
+                     System.out.println("Opción no válida.");
+                     return;
+             }
+
+
+             try {
+                 String respuesta = get(endpoint);
+                 System.out.println("Respuesta para el endpoint seleccionado: " + respuesta);
+             } catch (RuntimeException e) {
+                 System.err.println(e.getMessage());
+             }
+         }
