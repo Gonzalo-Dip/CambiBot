@@ -1,26 +1,19 @@
 package com.relaxingleg.commands;
-
-import com.relaxingleg.commands.CotizacionService;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class CotizacionCommand extends ListenerAdapter {
-
-    private static final Map<String, String> userEndpoints = new HashMap<>();
-    private static final String COTIZACION_DOLAR = "cotizacion_dolar";
-
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("cotizacion")) {
             event.reply("Seleccione la moneda que desea consultar:").setEphemeral(true).queue();
 
-            // Agregar botones para seleccionar la moneda
+
             event.getHook().editOriginal("Seleccione la moneda que desea consultar:")
                     .setActionRow(
                             Button.primary("moneda_dolar", "Dólar"),
@@ -34,7 +27,7 @@ public class CotizacionCommand extends ListenerAdapter {
     public void onButtonInteraction(ButtonInteractionEvent event) {
         if (event.getButton().getId().startsWith("tipo_dolar_")) {
             handleDolarType(event);
-            return; // Salimos de este método, ya que ya manejamos el tipo de Dólar.
+            return;
         }
 
         switch (event.getButton().getId()) {
@@ -56,7 +49,7 @@ public class CotizacionCommand extends ListenerAdapter {
     }
 
     private void askDolarType(ButtonInteractionEvent event) {
-        // Preguntar el tipo de cotización del Dólar
+
         event.reply("Seleccione el tipo de cotización del Dólar:").setEphemeral(true).queue();
 
         event.getHook().editOriginal("Seleccione el tipo de cotización del Dólar:")
@@ -91,9 +84,35 @@ public class CotizacionCommand extends ListenerAdapter {
     private void processResponse(ButtonInteractionEvent event, String endpoint) {
         try {
             String respuesta = CotizacionService.get(endpoint);
-            event.reply("Respuesta para el endpoint seleccionado: " + respuesta).setEphemeral(true).queue();
+
+
+            JsonObject jsonResponse = JsonParser.parseString(respuesta).getAsJsonObject();
+            String moneda = jsonResponse.get("moneda").getAsString();
+            String casa = jsonResponse.get("casa").getAsString();
+            String nombre = jsonResponse.get("nombre").getAsString();
+            int compra = jsonResponse.get("compra").getAsInt();
+            int venta = jsonResponse.get("venta").getAsInt();
+            String fechaActualizacion = jsonResponse.get("fechaActualizacion").getAsString();
+
+
+            String fechaFormateada = fechaActualizacion.substring(0, 10);
+
+
+            String respuestaEstetica = String.format(
+                    "**Cambio del Dólar - %s (%s)**\n" +
+                            "🏠 **Tipo:** %s\n" +
+                            "💵 **Compra:** %d\n" +
+                            "💰 **Venta:** %d\n" +
+                            "📅 **Última Actualización:** %s",
+                    moneda, nombre, casa, compra, venta, fechaFormateada
+            );
+
+
+            event.reply(respuestaEstetica).setEphemeral(true).queue();
         } catch (RuntimeException e) {
             event.reply("Error: " + e.getMessage()).setEphemeral(true).queue();
         }
     }
+
 }
+

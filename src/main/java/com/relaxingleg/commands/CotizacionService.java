@@ -10,7 +10,7 @@ public class CotizacionService {
 
     private static final String BASE_URL = "https://dolarapi.com/";
 
-    // Método para hacer una solicitud GET a un endpoint específico
+
     public static String get(String endpoint) {
         try {
             URL url = new URL(BASE_URL + endpoint);
@@ -82,7 +82,7 @@ public class CotizacionService {
                 return "Opción no válida.";
         }
 
-        // Realiza la solicitud y devuelve la respuesta
+
         return get(endpoint);
     }
 }
