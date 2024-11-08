@@ -19,7 +19,7 @@ public class Listeners extends ListenerAdapter {
 
             for(TextChannel channel : guild.getTextChannels()) {
 
-                channel.sendMessage("Bot en Línea").queue();;
+                channel.sendMessage("Bot en  Línea").queue();;
             }
 
         }
