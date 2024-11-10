@@ -1,10 +1,13 @@
 package com.relaxingleg;
-
+import com.detectlanguage.DetectLanguage;
+import com.detectlanguage.Result;
+import com.detectlanguage.errors.APIError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relaxingleg.commands.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -46,8 +49,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
+        Detect.Language1();
+        return;
+        /*Scanner scanner = new Scanner(System.in);
         JDA jda = JDABuilder.createDefault("", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES).build();
         jda.addEventListener((new Listeners()));
         CommandManager manager = new CommandManager();
@@ -125,30 +129,6 @@ public class Main {
             System.out.println("Respuesta para el endpoint seleccionado: " + respuesta);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
-        }
-    }
-    public class Main {
-    package com.Cambibot.commands;
-
-    import com.detectlanguage.DetectLanguage;
-    import com.detectlanguage.Result;
-    import com.detectlanguage.errors.APIError;
-    import java.util.List;
-
-        public class LanguageDetector {
-            private List<Result> results;
-
-            public LanguageDetector() throws APIError {
-                DetectLanguage.apiKey = "";
-
-                results = DetectLanguage.detect("Hello World");
-                List<Result> results = DetectLanguage.detect("Hello world");
-                Result result = results.get(0);
-
-                System.out.println("Language: " + result.language);
-                System.out.println("Is reliable: " + result.isReliable);
-                System.out.println("Confidence: " + result.confidence);
-            }
-        }
+        }*/
     }
 }
