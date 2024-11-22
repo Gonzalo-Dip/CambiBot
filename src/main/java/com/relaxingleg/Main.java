@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        JDA jda = JDABuilder.createDefault("MTI4MjUwNzI1MDUzOTE3MTg0MA.G_ny7B.i8GF4EAFwlbp5iIw3jYudQ7lIlQeFwzxCDg2As", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES).build();
+        JDA jda = JDABuilder.createDefault("", GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES).build();
         jda.addEventListener((new Listeners()));
         CommandManager manager = new CommandManager();
         manager.add(new Sum());
