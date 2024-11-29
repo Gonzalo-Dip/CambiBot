@@ -14,7 +14,6 @@ public class WeatherCommand implements ICommand {
 
     private final com.relaxingleg.commands.WeatherService weatherService;
 
-    // Constructor para inicializar la clase de servicio del clima
     public WeatherCommand(String apiKey) {
         this.weatherService = new com.relaxingleg.commands.WeatherService(apiKey);
     }
@@ -43,17 +42,13 @@ public class WeatherCommand implements ICommand {
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
-        // Obtener la ciudad ingresada por el usuario
         String city = event.getOption("city").getAsString();
 
         try {
-            // Usar WeatherService para obtener el pronóstico del clima
             String forecast = weatherService.obtenerPronostico(city);
 
-            // Responder con el pronóstico del clima
             event.reply("Weather forecast for **" + city + "**:\n" + forecast).queue();
         } catch (IOException e) {
-            // Manejar errores de la API o de conexión
             event.reply("There was an error retrieving the weather data: " + e.getMessage()).queue();
         }
     }

@@ -18,7 +18,7 @@ public class NoticiasService {
             Response response = client.newCall(request).execute();
             String json = response.body().string();
 
-            // Parseamos el JSON para obtener las noticias
+
             return "Últimas noticias de " + deporte + ": " + "X noticias";
         } catch (Exception e) {
             e.printStackTrace();
