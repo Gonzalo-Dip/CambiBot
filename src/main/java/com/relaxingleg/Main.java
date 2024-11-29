@@ -26,7 +26,6 @@ public class Main {
         manager.add(new Unmute());
         jda.addEventListener(manager);
 
-        jda.addEventListener(new Listeners());
         jda.addEventListener(new CotizacionCommand());
 
 
