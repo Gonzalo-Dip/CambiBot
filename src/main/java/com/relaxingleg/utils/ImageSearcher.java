@@ -8,12 +8,12 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-public class ImagenSearcher {
+public class ImageSearcher {
 
     private final String accessKey;
 
     // Constructor para inicializar la API Key
-    public ImagenSearcher(String accessKey) {
+    public ImageSearcher(String accessKey) {
         this.accessKey = accessKey;
     }
 
