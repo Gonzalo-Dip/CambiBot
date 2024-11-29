@@ -182,6 +182,6 @@ public enum Language {
                 return idioma.language;
             }
         }
-        return null; // Retorna null si no encuentra la clave
+        return null;
     }
 }
