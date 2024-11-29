@@ -24,6 +24,8 @@ public class Main {
         manager.add(new UnStaff());
         manager.add(new Mute());
         manager.add(new Unmute());
+        manager.add(new ImageSearchCommand("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40 "));
+
         jda.addEventListener(manager);
 
         jda.addEventListener(new CotizacionCommand());
