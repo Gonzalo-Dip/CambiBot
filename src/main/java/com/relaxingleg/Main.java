@@ -25,7 +25,6 @@ public class Main {
         manager.add(new Detect());
         jda.addEventListener(manager);
 
-        jda.addEventListener(new Listeners());
         jda.addEventListener(new CotizacionCommand());
     }
 }
