@@ -29,7 +29,7 @@ public class WeatherService {
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                return parseWeatherJson(responseBody); // Analizar el JSON y devolver el resultado
+                return parseWeatherJson(responseBody);
             } else {
                 System.out.println("Request failed with code: " + response.code());
                 return "Error: No se pudo obtener el pronóstico para " + ciudad;
