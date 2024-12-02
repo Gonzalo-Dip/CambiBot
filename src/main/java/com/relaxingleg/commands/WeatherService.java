@@ -63,16 +63,6 @@ public class WeatherService {
                 .get("feels_like")
                 .getAsDouble();
 
-        double tempMinima = jsonObject
-                .getAsJsonObject("main")
-                .get("temp_min")
-                .getAsDouble();
-
-        double tempMaxima = jsonObject
-                .getAsJsonObject("main")
-                .get("temp_max")
-                .getAsDouble();
-
         int humedad = jsonObject
                 .getAsJsonObject("main")
                 .get("humidity")
@@ -98,16 +88,6 @@ public class WeatherService {
                 .get("sunset")
                 .getAsLong();
 
-        // Extraer datos de probabilidad de lluvia (si están disponibles)
-        String probabilidadLluvia = "Sin datos de lluvia";
-        if (jsonObject.has("rain")) {
-            double lluvia = jsonObject
-                    .getAsJsonObject("rain")
-                    .get("1h") // Llueve en la última hora
-                    .getAsDouble();
-            probabilidadLluvia = "Probabilidad de lluvia: " + lluvia + " mm";
-        }
-
         // Formatear los tiempos de amanecer y atardecer
         String horaAmanecer = convertirUnixATiempo(amanecer);
         String horaAtardecer = convertirUnixATiempo(atardecer);
@@ -115,25 +95,19 @@ public class WeatherService {
         // Formatear la salida
         return String.format(
                 "Clima: %s\n" +
-                        "Temperatura actual: %.1f°C\n" +
-                        "Temperatura mínima: %.1f°C\n" +
-                        "Temperatura máxima: %.1f°C\n" +
+                        "Temperatura: %.1f°C\n" +
                         "Sensación térmica: %.1f°C\n" +
                         "Humedad: %d%%\n" +
                         "Velocidad del viento: %.1f m/s\n" +
                         "Presión atmosférica: %d hPa\n" +
-                        "%s\n" +
                         "Amanecer: %s\n" +
                         "Atardecer: %s",
                 descripcion,
                 temperatura,
-                tempMinima,
-                tempMaxima,
                 sensacionTermica,
                 humedad,
                 velocidadViento,
                 presion,
-                probabilidadLluvia,
                 horaAmanecer,
                 horaAtardecer
         );
