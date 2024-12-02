@@ -24,6 +24,10 @@ public class Main {
         manager.add(new Unmute());
         manager.add(new ImageSearchCommand("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40 "));
         manager.add(new Detect());
+        manager.add(new WeatherCommand("2fb2cba0f8e021741e92d4af1c261c18 "));
+
+
+
 
         jda.addEventListener(manager);
 

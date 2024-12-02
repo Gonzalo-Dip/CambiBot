@@ -15,6 +15,7 @@ El bot incluye las siguientes características:
 - **sum**: Realiza sumas básicas de números proporcionados por el usuario.
 - **cotizacion**: Facilita a tiempo real el tipo de cambio de la divisa que sea de nuestro interés.
 - **embeds**: permite enviar mensajes enriquecidos (embeds) que mejoran la presentación de la información.
+- **weather**: permite consultar el pronóstico de la ciudad indicada por el usuario 
 
 
 ### Instalación 🔧

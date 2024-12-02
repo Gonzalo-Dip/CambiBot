@@ -14,6 +14,7 @@ public class ImageSearcher {
     private final OkHttpClient client;
 
 
+
     public ImageSearcher(String accessKey) {
         this.accessKey = accessKey;
         this.client = new OkHttpClient.Builder()
@@ -41,6 +42,7 @@ public class ImageSearcher {
 
 
     private String realizarBusqueda(String palabraClave) throws IOException {
+
 
         String url = "https://api.unsplash.com/photos/random?query=" + palabraClave + "&client_id=" + accessKey;
 

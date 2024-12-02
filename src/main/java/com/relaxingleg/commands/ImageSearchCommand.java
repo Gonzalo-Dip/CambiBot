@@ -65,6 +65,18 @@ public class ImageSearchCommand implements ICommand {
         } catch (IOException e) {
 
             event.getHook().sendMessage("There was an error searching for the image: " + e.getMessage()).queue();
+
+            String imageUrl = imageSearcher.buscarImagen(keyword);
+
+            if (imageUrl != null) {
+                event.reply("Here is an image for **" + keyword + "**: " + imageUrl).queue();
+            } else {
+                event.reply("No images found for the keyword: **" + keyword + "**.").queue();
+            }
+
+        } catch (IOException e) {
+            event.reply("There was an error searching for the image: " + e.getMessage()).queue();
+
         }
     }
 }
