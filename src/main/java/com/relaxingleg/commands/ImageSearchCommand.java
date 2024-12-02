@@ -52,11 +52,9 @@ public class ImageSearchCommand implements ICommand {
             String imageUrl = imageSearcher.buscarImagen(keyword);
 
             if (imageUrl != null) {
-                // Responder con botones
                 event.getHook().sendMessage("Here is an image for **" + keyword + "**: " + imageUrl)
                         .addActionRow(
-                                Button.primary("search_again", "Search Again"), // Botón para buscar otra imagen
-                                Button.danger("stop_search", "Stop") // Botón para finalizar
+                                Button.primary("search_again", "Search Again")
                         ).queue();
             } else {
                 event.getHook().sendMessage("No images found for the keyword: **" + keyword + "**.").queue();
