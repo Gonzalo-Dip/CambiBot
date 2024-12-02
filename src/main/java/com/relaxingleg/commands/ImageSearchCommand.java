@@ -44,7 +44,7 @@ public class ImageSearchCommand implements ICommand {
     }
 
     @Override
-    public void execute(SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) throws IOException {
         String keyword = event.getOption("keyword").getAsString();
         event.deferReply().queue();
 
@@ -71,9 +71,6 @@ public class ImageSearchCommand implements ICommand {
             } else {
                 event.reply("No images found for the keyword: **" + keyword + "**.").queue();
             }
-
-        } catch (IOException e) {
-            event.reply("There was an error searching for the image: " + e.getMessage()).queue();
 
         }
     }
