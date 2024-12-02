@@ -99,7 +99,7 @@ public class CotizacionCommand extends ListenerAdapter {
 
 
             String respuestaEstetica = String.format(
-                    "**Cambio del Dólar - %s (%s)**\n" +
+                    "**Cambio de la divisa - %s (%s)**\n" +
                             "🏠 **Tipo:** %s\n" +
                             "💵 **Compra:** %d\n" +
                             "💰 **Venta:** %d\n" +
