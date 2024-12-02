@@ -11,39 +11,70 @@ import java.io.IOException;
 public class ImageSearcher {
 
     private final String accessKey;
+    private final OkHttpClient client;
 
-    // Constructor para inicializar la API Key
+
     public ImageSearcher(String accessKey) {
         this.accessKey = accessKey;
+        this.client = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .build();
     }
 
-    // Método público para buscar una imagen por palabra clave
-    public String buscarImagen(String palabraClave) throws IOException {
-        OkHttpClient client = new OkHttpClient();
 
-        // Construir la URL para la petición
+    public String buscarImagen(String palabraClave) throws IOException {
+        int maxAttempts = 3;
+        for (int i = 1; i <= maxAttempts; i++) {
+            try {
+
+                String imageUrl = realizarBusqueda(palabraClave);
+                if (imageUrl != null) {
+                    return imageUrl;
+                }
+                System.out.println("Intento " + i + " fallido: No se encontraron resultados.");
+            } catch (IOException e) {
+                System.out.println("Intento " + i + " fallido: " + e.getMessage());
+            }
+        }
+        return null;
+    }
+
+
+    private String realizarBusqueda(String palabraClave) throws IOException {
+
         String url = "https://api.unsplash.com/photos/random?query=" + palabraClave + "&client_id=" + accessKey;
 
-        // Crear la petición
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        // Ejecutar la petición y manejar la respuesta
+
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 return extractImageUrlFromJson(responseBody);
             } else {
-                System.out.println("Request failed with code: " + response.code());
+                System.out.println("Error en la respuesta de la API: Código " + response.code());
                 return null;
             }
         }
     }
 
-    // Método privado para extraer la URL de la imagen desde el JSON de la API
+
     private String extractImageUrlFromJson(String jsonResponse) {
-        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-        return jsonObject.getAsJsonObject("urls").get("regular").getAsString();
+        try {
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+            JsonObject urlsObject = jsonObject.getAsJsonObject("urls");
+            if (urlsObject != null && urlsObject.has("regular")) {
+                return urlsObject.get("regular").getAsString();
+            } else {
+                System.out.println("Estructura del JSON inesperada: " + jsonResponse);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al analizar el JSON: " + e.getMessage());
+            return null;
+        }
     }
 }

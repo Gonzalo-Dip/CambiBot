@@ -15,7 +15,7 @@ public class ImageSearchCommand implements ICommand {
 
     private final ImageSearcher imageSearcher;
 
-    // Constructor para inicializar la clase de búsqueda
+
     public ImageSearchCommand(String apiKey) {
         this.imageSearcher = new ImageSearcher(apiKey);
     }
@@ -44,24 +44,27 @@ public class ImageSearchCommand implements ICommand {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        // Obtener la palabra clave ingresada por el usuario
+
         String keyword = event.getOption("keyword").getAsString();
 
+
+        event.deferReply().queue();
+
         try {
-            // Usar ImageSearcher para buscar la imagen
+
             String imageUrl = imageSearcher.buscarImagen(keyword);
 
             if (imageUrl != null) {
-                // Responder con el enlace de la imagen
-                event.reply("Here is an image for **" + keyword + "**: " + imageUrl).queue();
+
+                event.getHook().sendMessage("Here is an image for **" + keyword + "**: " + imageUrl).queue();
             } else {
-                // Responder si no se encontró ninguna imagen
-                event.reply("No images found for the keyword: **" + keyword + "**.").queue();
+
+                event.getHook().sendMessage("No images found for the keyword: **" + keyword + "**.").queue();
             }
 
         } catch (IOException e) {
-            // Manejar errores de la API o de conexión
-            event.reply("There was an error searching for the image: " + e.getMessage()).queue();
+
+            event.getHook().sendMessage("There was an error searching for the image: " + e.getMessage()).queue();
         }
     }
 }
