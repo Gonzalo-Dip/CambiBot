@@ -45,7 +45,7 @@ public class WeatherService {
     private String parseWeatherJson(String jsonResponse) {
         JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
 
-        // Extraer datos importantes
+        // Extraer datos principales
         String descripcion = jsonObject
                 .getAsJsonArray("weather")
                 .get(0)
@@ -63,6 +63,61 @@ public class WeatherService {
                 .get("feels_like")
                 .getAsDouble();
 
-        return String.format("Clima: %s\nTemperatura: %.1f°C\nSensación térmica: %.1f°C", descripcion, temperatura, sensacionTermica);
+        int humedad = jsonObject
+                .getAsJsonObject("main")
+                .get("humidity")
+                .getAsInt();
+
+        double velocidadViento = jsonObject
+                .getAsJsonObject("wind")
+                .get("speed")
+                .getAsDouble();
+
+        int presion = jsonObject
+                .getAsJsonObject("main")
+                .get("pressure")
+                .getAsInt();
+
+        long amanecer = jsonObject
+                .getAsJsonObject("sys")
+                .get("sunrise")
+                .getAsLong();
+
+        long atardecer = jsonObject
+                .getAsJsonObject("sys")
+                .get("sunset")
+                .getAsLong();
+
+        // Formatear los tiempos de amanecer y atardecer
+        String horaAmanecer = convertirUnixATiempo(amanecer);
+        String horaAtardecer = convertirUnixATiempo(atardecer);
+
+        // Formatear la salida
+        return String.format(
+                "Clima: %s\n" +
+                        "Temperatura: %.1f°C\n" +
+                        "Sensación térmica: %.1f°C\n" +
+                        "Humedad: %d%%\n" +
+                        "Velocidad del viento: %.1f m/s\n" +
+                        "Presión atmosférica: %d hPa\n" +
+                        "Amanecer: %s\n" +
+                        "Atardecer: %s",
+                descripcion,
+                temperatura,
+                sensacionTermica,
+                humedad,
+                velocidadViento,
+                presion,
+                horaAmanecer,
+                horaAtardecer
+        );
+    }
+
+    // Método para convertir tiempo UNIX a formato de hora legible
+    private String convertirUnixATiempo(long unixTime) {
+        java.util.Date fecha = new java.util.Date(unixTime * 1000L);
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+        sdf.setTimeZone(java.util.TimeZone.getDefault());
+        return sdf.format(fecha);
     }
 }
