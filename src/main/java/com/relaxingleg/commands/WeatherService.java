@@ -12,24 +12,28 @@ public class WeatherService {
 
     private final String apiKey;
 
+    // Constructor para inicializar la API Key
     public WeatherService(String apiKey) {
         this.apiKey = apiKey;
     }
 
+    // Método público para obtener el pronóstico del clima por ciudad
     public String obtenerPronostico(String ciudad) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
+        // Construir la URL para la petición
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + ciudad + "&units=metric&lang=es&appid=" + apiKey;
 
-
+        // Crear la petición
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
+        // Ejecutar la petición y manejar la respuesta
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                return parseWeatherJson(responseBody);
+                return parseWeatherJson(responseBody); // Analizar el JSON y devolver el resultado
             } else {
                 System.out.println("Request failed with code: " + response.code());
                 return "Error: No se pudo obtener el pronóstico para " + ciudad;
@@ -37,10 +41,11 @@ public class WeatherService {
         }
     }
 
-
+    // Método privado para analizar el JSON de respuesta y extraer el pronóstico
     private String parseWeatherJson(String jsonResponse) {
         JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
 
+        // Extraer datos principales
         String descripcion = jsonObject
                 .getAsJsonArray("weather")
                 .get(0)
@@ -83,11 +88,11 @@ public class WeatherService {
                 .get("sunset")
                 .getAsLong();
 
-        
+        // Formatear los tiempos de amanecer y atardecer
         String horaAmanecer = convertirUnixATiempo(amanecer);
         String horaAtardecer = convertirUnixATiempo(atardecer);
 
-        
+        // Formatear la salida
         return String.format(
                 "Clima: %s\n" +
                         "Temperatura: %.1f°C\n" +
@@ -108,7 +113,7 @@ public class WeatherService {
         );
     }
 
-    
+    // Método para convertir tiempo UNIX a formato de hora legible
     private String convertirUnixATiempo(long unixTime) {
         java.util.Date fecha = new java.util.Date(unixTime * 1000L);
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss");
