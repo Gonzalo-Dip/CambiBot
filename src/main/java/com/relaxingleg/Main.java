@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import java.util.Scanner;
-import com.relaxingleg.listeners.ButtonListener;
 
 public class Main {
 
@@ -34,7 +33,6 @@ public class Main {
         jda.addEventListener(manager);
 
         jda.addEventListener(new CotizacionCommand());
-        jda.addEventListener(new ButtonListener(new ImageSearcher("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40")));
 
     }
 }
