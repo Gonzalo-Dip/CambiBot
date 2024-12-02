@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,27 +45,25 @@ public class ImageSearchCommand implements ICommand {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-
         String keyword = event.getOption("keyword").getAsString();
-
-
         event.deferReply().queue();
 
         try {
-
             String imageUrl = imageSearcher.buscarImagen(keyword);
 
             if (imageUrl != null) {
-
-                event.getHook().sendMessage("Here is an image for **" + keyword + "**: " + imageUrl).queue();
+                // Responder con botones
+                event.getHook().sendMessage("Here is an image for **" + keyword + "**: " + imageUrl)
+                        .addActionRow(
+                                Button.primary("search_again", "Search Again"), // Botón para buscar otra imagen
+                                Button.danger("stop_search", "Stop") // Botón para finalizar
+                        ).queue();
             } else {
-
                 event.getHook().sendMessage("No images found for the keyword: **" + keyword + "**.").queue();
             }
-
         } catch (IOException e) {
-
             event.getHook().sendMessage("There was an error searching for the image: " + e.getMessage()).queue();
         }
     }
 }
+
