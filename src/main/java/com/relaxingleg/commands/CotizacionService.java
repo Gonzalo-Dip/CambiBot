@@ -38,51 +38,6 @@ public class CotizacionService {
         }
     }
 
-    public static String seleccionarCotizacion(Scanner scanner) {
-        System.out.println("Seleccione la moneda que desea consultar:");
-        System.out.println("1. Dólar");
-        System.out.println("2. Euro");
-        System.out.println("3. Real");
-
-        int moneda = scanner.nextInt();
-        String endpoint = "";
-
-        switch (moneda) {
-            case 1:
-                System.out.println("Seleccione el tipo de cotización del Dólar:");
-                System.out.println("1. Dólar Blue");
-                System.out.println("2. Dólar Oficial");
-                System.out.println("3. Dólar Bolsa");
-                int tipoDolar = scanner.nextInt();
-
-                switch (tipoDolar) {
-                    case 1:
-                        endpoint = "v1/dolares/blue";
-                        break;
-                    case 2:
-                        endpoint = "v1/dolares/oficial";
-                        break;
-                    case 3:
-                        endpoint = "v1/dolares/bolsa";
-                        break;
-                    default:
-                        return "Opción no válida para el tipo de Dólar.";
-                }
-                break;
-
-            case 2:
-                endpoint = "v1/cotizaciones/eur"; // Cotización del Euro
-                break;
-
-            case 3:
-                endpoint = "v1/cotizaciones/brl"; // Cotización del Real
-                break;
-
-            default:
-                return "Opción no válida.";
-        }
 
 
-        return get(endpoint);
-    }
 }
