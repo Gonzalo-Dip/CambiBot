@@ -1,10 +1,12 @@
 package com.relaxingleg;
 
 import com.relaxingleg.commands.*;
+import com.relaxingleg.utils.ImageSearcher;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import java.util.Scanner;
+import com.relaxingleg.listeners.ButtonListener;
 
 public class Main {
 
@@ -22,7 +24,7 @@ public class Main {
         manager.add(new UnStaff());
         manager.add(new Mute());
         manager.add(new Unmute());
-        manager.add(new ImageSearchCommand("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40 "));
+        manager.add(new ImageSearchCommand("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40"));
         manager.add(new Detect());
         manager.add(new WeatherCommand("2fb2cba0f8e021741e92d4af1c261c18 "));
 
@@ -32,5 +34,7 @@ public class Main {
         jda.addEventListener(manager);
 
         jda.addEventListener(new CotizacionCommand());
+        jda.addEventListener(new ButtonListener(new ImageSearcher("nHB9nKTi_diEBK7PDVPVF783Lqvil9hwJO10KVOYe40")));
+
     }
 }
